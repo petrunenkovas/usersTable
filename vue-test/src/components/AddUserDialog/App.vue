@@ -24,7 +24,8 @@
 
     </div>
 
-    <button @click="createUser">Сохранить</button>
+    <div class="error" v-if="error !== null">{{ error }}</div>
+    <button @click="validateForm">Сохранить</button>
 
   </form>
   </form-dialog>
@@ -54,15 +55,12 @@ export default {
         name: null,
         phone: null
       },
-      chiefId: null
+      chiefId: null,
+      error: null
     }
   },
   methods: {
     createUser () {
-      if (this.user.name === null || this.user.phone === null) {
-        alert('Review is incomplete. Please fill out every field.')
-        return
-      };
       this.user.id = Date.now()
       this.user.subordinates = []
       this.$emit('createUser', this.user, this.chiefId)
@@ -74,6 +72,21 @@ export default {
     },
     hideDialog () {
       this.$emit('close')
+    },
+    validateForm () {
+      this.error = null;
+      try {
+        if (this.user.name === null || this.user.phone === null) {
+          const fields = []
+          throw new Error (`Нужно заполнить все поля! Заполните ${fields}`)
+        }
+        if (!/^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/.test(this.user.phone)) {
+          throw new Error ('Неверно указан номер телефона!')
+        } 
+        this.createUser();
+      } catch (error) {
+        this.error = error.message
+      }
     }
   },
   computed: {
@@ -130,5 +143,10 @@ span {
     color: black;
     font-size: 16px;
     font-weight: bold;
+}
+.error {
+  display: block;
+  color: red;
+  text-align: end;
 }
 </style>

@@ -7,6 +7,7 @@
       @click="sortUsers"
       >
         {{ item.title }}
+        <span v-if="sortAsc !== 0 && selectedSort === item.name">{{ sortAsc === 1 ? '&#9650;' : '&#9660;' }}</span>
     </div>
   </div>
 </template>
@@ -18,10 +19,20 @@ export default {
     headerData: {
       type: Array,
       required: true
+    },
+    sortAsc: {
+      type: Number,
+      required: true
+    }
+  },
+  data () {
+    return {
+      selectedSort: null
     }
   },
   methods: {
     sortUsers (event) {
+      this.selectedSort = event.target.className
       this.$emit('sort', event.target.className)
     }
   }

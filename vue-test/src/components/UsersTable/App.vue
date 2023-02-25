@@ -2,6 +2,7 @@
 <div class="user_table">
   <table-header
   :headerData="headers"
+  :sortAsc="sortAsc"
   @sort="sortUsers"
   />
 
@@ -30,6 +31,10 @@ export default {
     },
     headers: {
       type: Array,
+      required: true
+    },
+    sortAsc: {
+      type: Number,
       required: true
     }
   },

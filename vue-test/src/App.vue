@@ -13,8 +13,11 @@
     <users-table
     :users="users"
     :headers="headers"
+    :sortAsc="sortAsc"
     @sort="sortUsers"
     />
+
+    <div class="savedUser" v-show="shownSavedUser">Пользователь успешно создан</div>
   </div>
 </template>
 
@@ -32,7 +35,9 @@ export default {
     return {
       users: [],
       headers: [{name: 'name', title: 'Имя'}, {name: 'phone', title: 'Телефон'}],
-      shownDialog: false
+      shownDialog: false,
+      shownSavedUser: false,
+      sortAsc: 0
     }
   },
   methods: {
@@ -54,15 +59,18 @@ export default {
       }
       localStorage.setItem('users', JSON.stringify(this.users))
       this.closeDialog()
+      this.shownSavedUser = true
+      setTimeout(() => this.shownSavedUser = false, 2000)
     },
     sortUsers (selectedSort) {
+      let sortAsc = this.sortAsc = (this.sortAsc === 0 || this.sortAsc === -1) ? 1 : -1
       function sortUsersByProp (usersArr, selectedSort) {
         usersArr.sort((user1, user2) => {
           if (user1[selectedSort] > user2[selectedSort]) {
-            return 1
+            return sortAsc
           }
           if (user1[selectedSort] < user2[selectedSort]) {
-            return -1
+            return -sortAsc
           }
           return 0
         })
@@ -102,5 +110,14 @@ button {
   margin: 20px 0;
   width: auto;
   padding: 5px 20px;
+}
+.savedUser {
+  background-color: lightgreen;
+  border: 1px solid black;
+  border-radius: 13px;
+  padding: 20px 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 </style>

@@ -3,7 +3,12 @@
 
     <div class="row">
       <div :style="styleForSubordinates">
-        <span v-if="rowData.subordinates.length > 0" @click="toggleSub">+</span>
+        <span
+          v-if="rowData.subordinates.length > 0"
+          @click="toggleSub"
+          >
+          {{ shownSub ? '-' : '+' }}
+        </span>
         {{ rowData.name }}
       </div>
 
@@ -14,7 +19,8 @@
     v-if="shownSub"
     class="subordinates"
     v-for="user in rowData.subordinates"
-    :key="user.id" :rowData="user"
+    :key="user.id" 
+    :rowData="user"
     :isSubordinate="true"
     :flexBasis="innerFlexBasis"
     />
