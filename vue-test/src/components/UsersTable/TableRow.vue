@@ -19,7 +19,7 @@
     v-if="shownSub"
     class="subordinates"
     v-for="user in rowData.subordinates"
-    :key="user.id" 
+    :key="user.id"
     :rowData="user"
     :isSubordinate="true"
     :flexBasis="innerFlexBasis"
@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       shownSub: false,
-      innerFlexBasis: 0
+      innerFlexBasis: this.flexBasis - 20
     }
   },
   methods: {
@@ -61,7 +61,6 @@ export default {
   },
   computed: {
     styleForSubordinates () {
-      this.innerFlexBasis = this.flexBasis - 20
       if (this.isSubordinate) {
         return {
           flex: `1 ${this.innerFlexBasis}px`,

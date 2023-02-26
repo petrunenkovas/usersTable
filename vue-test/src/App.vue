@@ -42,25 +42,27 @@ export default {
   },
   methods: {
     createUser (newUser, chiefId) {
+      function addUser (userArr, chiefId, userToAdd) {
+        return userArr.forEach((user) => {
+          if (user.id === chiefId) {
+            user.subordinates.push(userToAdd)
+          } else if (user.subordinates.length > 0) {
+            addUser(user.subordinates, chiefId, userToAdd)
+          }
+        })
+      }
       if (chiefId === null) {
         this.users.push(newUser)
       } else {
         Number(chiefId)
-        function addUser (userArr, chiefId, userToAdd) {
-          return userArr.forEach((user) => {
-            if (user.id === chiefId) {
-              user.subordinates.push(userToAdd)
-            } else if (user.subordinates.length > 0) {
-              addUser(user.subordinates, chiefId, userToAdd)
-            }
-          })
-        }
         addUser(this.users, chiefId, newUser)
       }
       localStorage.setItem('users', JSON.stringify(this.users))
       this.closeDialog()
       this.shownSavedUser = true
-      setTimeout(() => this.shownSavedUser = false, 2000)
+      setTimeout(() => {
+        this.shownSavedUser = false
+      }, 2000)
     },
     sortUsers (selectedSort) {
       let sortAsc = this.sortAsc = (this.sortAsc === 0 || this.sortAsc === -1) ? 1 : -1

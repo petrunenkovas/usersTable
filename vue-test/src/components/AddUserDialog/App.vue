@@ -2,7 +2,7 @@
   <form-dialog @close="hideDialog">
     <form @submit.prevent>
     <h3>Добавление пользователя<span @click="hideDialog">&times;</span></h3>
-    
+
     <div v-for="item in inputData" :key="item.name" class="input">
       <label :for="item.name">{{ item.title }}</label>
       <input v-model="user[item.name]" :name="item.name">
@@ -13,9 +13,9 @@
 
       <select name="chief" v-model="chiefId">
         <option value="null"></option>
-        <option 
-        v-for="user in getAllUsers" 
-        :key="user.id" 
+        <option
+        v-for="user in getAllUsers"
+        :key="user.id"
         :value="user.id"
         >
           {{ user.name }}
@@ -74,16 +74,15 @@ export default {
       this.$emit('close')
     },
     validateForm () {
-      this.error = null;
+      this.error = null
       try {
         if (this.user.name === null || this.user.phone === null) {
-          const fields = []
-          throw new Error (`Нужно заполнить все поля! Заполните ${fields}`)
+          throw new Error('Нужно заполнить все поля!')
         }
-        if (!/^\+?[78][-\(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/.test(this.user.phone)) {
-          throw new Error ('Неверно указан номер телефона!')
-        } 
-        this.createUser();
+        if (!/^\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/.test(this.user.phone)) {
+          throw new Error('Неверно указан номер телефона!')
+        }
+        this.createUser()
       } catch (error) {
         this.error = error.message
       }
@@ -92,7 +91,6 @@ export default {
   computed: {
     getAllUsers () {
       function getUsers (usersArr) {
-        Array.isArray(usersArr) ? usersArr : []
         const allUsers = usersArr.reduce((acc, user) => {
           acc.push(user)
           if (user.subordinates.length > 0) {
