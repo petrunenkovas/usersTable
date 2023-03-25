@@ -2,7 +2,7 @@
 <div class="user_table">
   <table-header
   :headerData="headers"
-  :sortAsc="sortAsc"
+  :sortAscending = sortAscending
   @sort="sortUsers"
   />
 
@@ -33,7 +33,7 @@ export default {
       type: Array,
       required: true
     },
-    sortAsc: {
+    sortAscending: {
       type: Number,
       required: true
     }

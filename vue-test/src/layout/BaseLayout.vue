@@ -13,7 +13,7 @@
     <users-table
     :users="groupedUsersToView"
     :headers="headers"
-    :sortAsc="sortAsc"
+    :sortAscending = selectedSort.ascending
     @sort="sortUsers"
     />
 
@@ -34,11 +34,10 @@ export default {
   data () {
     return {
       users: [],
-      headers: [{name: 'name', title: 'Имя'}, {name: 'phone', title: 'Телефон'}],
+      headers: [{ name: 'name', title: 'Имя' }, { name: 'phone', title: 'Телефон' }],
       shownDialog: false,
       shownSavedUser: false,
-      selectedSort: null,
-      sortAsc: 0
+      selectedSort: { field: null, ascending: 0 }
     }
   },
   methods: {
@@ -52,11 +51,11 @@ export default {
       }, 2000)
     },
     sortUsers (selectedSort) {
-      if (this.selectedSort === selectedSort) {
-        this.sortAsc = (this.sortAsc === -1) ? 1 : -1
+      if (this.selectedSort.field === selectedSort) {
+        this.selectedSort.ascending = (this.selectedSort.ascending === -1) ? 1 : -1
       } else {
-        this.sortAsc = 1
-        this.selectedSort = selectedSort
+        this.selectedSort.ascending = 1
+        this.selectedSort.field = selectedSort
       }
     },
     showDialog () {
@@ -69,11 +68,11 @@ export default {
   computed: {
     sortUsersByProp () {
       return [...this.users].sort((user1, user2) => {
-        if (user1[this.selectedSort] > user2[this.selectedSort]) {
-          return this.sortAsc
+        if (user1[this.selectedSort.field] > user2[this.selectedSort.field]) {
+          return this.selectedSort.ascending
         }
         if (user1[this.selectedSort] < user2[this.selectedSort]) {
-          return -this.sortAsc
+          return -this.selectedSort.ascending
         }
         return 0
       })

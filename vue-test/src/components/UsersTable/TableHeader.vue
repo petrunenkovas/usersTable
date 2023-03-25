@@ -7,7 +7,7 @@
       @click="sortUsers"
       >
         {{ item.title }}
-        <span v-if="sortAsc !== 0 && selectedSort === item.name">{{ sortAsc === 1 ? '&#9650;' : '&#9660;' }}</span>
+        <span v-if="sortAscending !== 0 && selectedSort === item.name">{{ sortAscending === 1 ? '&#9650;' : '&#9660;' }}</span>
     </div>
   </div>
 </template>
@@ -20,7 +20,7 @@ export default {
       type: Array,
       required: true
     },
-    sortAsc: {
+    sortAscending: {
       type: Number,
       required: true
     }
@@ -53,5 +53,8 @@ export default {
 }
 .header div:nth-child(2) {
   flex: 0 100px;
+}
+span {
+  font-size: x-small;
 }
 </style>
