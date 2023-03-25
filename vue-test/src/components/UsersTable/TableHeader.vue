@@ -51,7 +51,7 @@ export default {
   border: 1px solid black;
   flex: 2;
 }
-.header div:nth-child(1) {
-  flex: 1 200px;
+.header div:nth-child(2) {
+  flex: 0 100px;
 }
 </style>

@@ -99,7 +99,7 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  width: 500px;
   align-items: flex-end;
 }
 button {

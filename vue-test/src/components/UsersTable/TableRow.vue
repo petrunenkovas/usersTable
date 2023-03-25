@@ -2,7 +2,7 @@
   <div class="user_row">
 
     <div class="row">
-      <div :style="styleForSubordinates">
+      <div >
         <span
           v-if="rowData.subordinates.length > 0"
           @click="toggleSub"
@@ -22,7 +22,6 @@
     :key="user.id"
     :rowData="user"
     :isSubordinate="true"
-    :flexBasis="innerFlexBasis"
     />
   </div>
 </template>
@@ -38,16 +37,11 @@ export default {
     isSubordinate: {
       type: Boolean,
       default: false
-    },
-    flexBasis: {
-      type: Number,
-      default: 220
     }
   },
   data () {
     return {
-      shownSub: false,
-      innerFlexBasis: this.flexBasis - 20
+      shownSub: false
     }
   },
   methods: {
@@ -56,17 +50,6 @@ export default {
         this.shownSub = false
       } else {
         this.shownSub = true
-      }
-    }
-  },
-  computed: {
-    styleForSubordinates () {
-      if (this.isSubordinate) {
-        return {
-          flex: `1 ${this.innerFlexBasis}px`,
-          'margin-left': `${200 - this.innerFlexBasis}px`,
-          width: 'auto'
-        }
       }
     }
   }
@@ -82,7 +65,13 @@ export default {
 .row {
   width: 100%;
   display: flex;
-  justify-content: baseline;
+  justify-content: flex-end;
+}
+.user_row.subordinates {
+  padding-left: 20px;
+}
+.user_row.subordinates div:nth-child(1) {
+  width: auto;
 }
 .row div {
   text-align: left;
@@ -90,18 +79,14 @@ export default {
   border: 1px solid black;
 }
 .row div:nth-child(1) {
-  flex: 1 2 200px;
+  flex: 1 2;
 }
 .row div:nth-child(2) {
-  flex: 2 1;
+  flex: 0 100px;
   flex-wrap: nowrap;
 }
 span {
   font-weight: bold;
   margin-left: -5px;
 }
-/* .subordinates div div:nth-child(1) {
-  margin-left: 20px;
-  width: auto;
-} */
 </style>
