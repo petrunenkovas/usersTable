@@ -11,10 +11,10 @@
     <div class="input">
       <label for="chief">Начальник</label>
 
-      <select name="chief" v-model="chiefId">
+      <select name="chief" v-model="user.chiefId">
         <option value="null"></option>
         <option
-        v-for="user in getAllUsers"
+        v-for="user in users"
         :key="user.id"
         :value="user.id"
         >
@@ -53,20 +53,20 @@ export default {
     return {
       user: {
         name: null,
-        phone: null
+        phone: null,
+        chiefId: null
       },
-      chiefId: null,
       error: null
     }
   },
   methods: {
     createUser () {
       this.user.id = Date.now()
-      this.user.subordinates = []
-      this.$emit('createUser', this.user, this.chiefId)
+      this.$emit('createUser', this.user)
       this.user = {
         name: null,
-        phone: null
+        phone: null,
+        chiefId: null
       }
       this.chief = null
     },
@@ -86,21 +86,6 @@ export default {
       } catch (error) {
         this.error = error.message
       }
-    }
-  },
-  computed: {
-    getAllUsers () {
-      function getUsers (usersArr) {
-        const allUsers = usersArr.reduce((acc, user) => {
-          acc.push(user)
-          if (user.subordinates.length > 0) {
-            acc = [...acc, ...getUsers(user.subordinates)]
-          }
-          return acc
-        }, [])
-        return allUsers
-      }
-      return getUsers(this.users)
     }
   }
 }

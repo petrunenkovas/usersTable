@@ -32,7 +32,7 @@ export default {
     border: 1px solid black;
     min-height: 50px;
     min-width: 350px;
-    padding: 2px 20px 0 20px;
+    padding: 10px 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
