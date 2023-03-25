@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import FormDialog from './FormDialog'
+import FormDialog from '../UI/ModalDialog.vue'
 
 export default {
   name: 'add-user-dialog',
@@ -68,10 +68,6 @@ export default {
         phone: null,
         chiefId: null
       }
-      this.chief = null
-    },
-    hideDialog () {
-      this.$emit('close')
     },
     validateForm () {
       this.error = null
@@ -86,6 +82,9 @@ export default {
       } catch (error) {
         this.error = error.message
       }
+    },
+    hideDialog () {
+      this.$emit('close')
     }
   }
 }

@@ -8,10 +8,21 @@
 
 <script>
 export default {
-  name: 'form-dialog',
+  name: 'modal-dialog',
+  mounted () {
+    document.addEventListener('keydown', this.escHideDialog)
+  },
+  beforeDestroy () {
+    document.removeEventListener('keydown', this.escHideDialog)
+  },
   methods: {
     hideDialog () {
       this.$emit('close')
+    },
+    escHideDialog (e) {
+      if (e.key === 'Escape') {
+        this.hideDialog()
+      }
     }
   }
 }
@@ -23,6 +34,7 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
+    background: rgba(0,0,0,0.5);
     position: fixed;
     display: flex;
 }

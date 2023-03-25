@@ -23,7 +23,7 @@
 
 <script>
 import UsersTable from '../components/UsersTable/App.vue'
-import AddUserDialog from '../components/AddUserDialog/App.vue'
+import AddUserDialog from '../components/AddUserDialog.vue'
 
 export default {
   name: 'base-layout',
