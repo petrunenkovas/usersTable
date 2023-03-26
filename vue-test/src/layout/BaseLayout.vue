@@ -4,8 +4,10 @@
 
     <add-user-dialog
     v-if="shownDialog"
+
     :inputData="headers"
     :users="users"
+
     @createUser="createUser"
     @close="closeDialog"
     />
@@ -14,10 +16,11 @@
     :users="groupedUsersToView"
     :headers="headers"
     :sortAscending = selectedSort.ascending
+
     @sort="sortUsers"
     />
 
-    <div class="savedUser" v-show="shownSavedUser">Пользователь успешно создан</div>
+    <div v-show="shownSavedUser" class="savedUser">Пользователь успешно создан</div>
 </div>
 </template>
 

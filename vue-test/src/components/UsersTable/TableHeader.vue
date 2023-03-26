@@ -3,11 +3,17 @@
       <div
       v-for="item in headerData"
       :key="item.name"
+
       :class="item.name"
+
       @click="sortUsers"
       >
         {{ item.title }}
-        <span v-if="sortAscending !== 0 && selectedSort === item.name">{{ sortAscending === 1 ? '&#9650;' : '&#9660;' }}</span>
+        <span
+          v-if="sortAscending !== 0 && selectedSort === item.name"
+          >
+          {{ sortAscending === 1 ? '&#9650;' : '&#9660;' }}
+        </span>
     </div>
   </div>
 </template>

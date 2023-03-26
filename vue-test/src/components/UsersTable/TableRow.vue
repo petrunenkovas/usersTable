@@ -1,10 +1,11 @@
 <template>
-  <div class="user_row">
+  <div class="user_row" :class="{subordinates: isSubordinate}">
 
     <div class="row">
       <div >
         <span
           v-if="userToView.subordinates.length > 0"
+
           @click="toggleSub"
           >
           {{ shownSub ? '-' : '+' }}
@@ -17,8 +18,8 @@
 
     <table-row
     v-if="shownSub"
-    class="subordinates"
     v-for="user in userToView.subordinates"
+
     :key="user.id"
     :userToView="user"
     :isSubordinate="true"

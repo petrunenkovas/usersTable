@@ -1,5 +1,5 @@
 <template>
-<div class="dialog" @click="hideDialog">
+<div @click="hideDialog" class="dialog">
   <div @click.stop class="dialog__content">
     <slot></slot>
   </div>
