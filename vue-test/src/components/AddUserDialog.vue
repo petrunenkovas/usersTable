@@ -25,7 +25,7 @@
     </div>
 
     <div class="error" v-if="error !== null">{{ error }}</div>
-    <button @click="validateForm">Сохранить</button>
+    <button  type="button" @click="validateForm">Сохранить</button>
 
   </form>
   </form-dialog>

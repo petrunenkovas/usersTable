@@ -9,7 +9,7 @@
   <table-row
   v-for="user in users"
   :key="user.id"
-  :rowData="user"
+  :userToView="user"
   />
 </div>
 </template>

@@ -4,23 +4,23 @@
     <div class="row">
       <div >
         <span
-          v-if="rowData.subordinates.length > 0"
+          v-if="userToView.subordinates.length > 0"
           @click="toggleSub"
           >
           {{ shownSub ? '-' : '+' }}
         </span>
-        {{ rowData.name }}
+        {{ userToView.name }}
       </div>
 
-      <div>{{ rowData.phone }}</div>
+      <div>{{ userToView.phone }}</div>
     </div>
 
     <table-row
     v-if="shownSub"
     class="subordinates"
-    v-for="user in rowData.subordinates"
+    v-for="user in userToView.subordinates"
     :key="user.id"
-    :rowData="user"
+    :userToView="user"
     :isSubordinate="true"
     />
   </div>
@@ -30,7 +30,7 @@
 export default {
   name: 'table-row',
   props: {
-    rowData: {
+    userToView: {
       type: Object,
       required: true
     },
