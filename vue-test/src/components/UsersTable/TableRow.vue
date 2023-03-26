@@ -58,7 +58,6 @@ export default {
 
 <style scoped>
 .user_row {
-  width: auto;
   padding: 0;
   margin: 0;
 }
@@ -70,9 +69,6 @@ export default {
 .user_row.subordinates {
   padding-left: 20px;
 }
-.user_row.subordinates div:nth-child(1) {
-  width: auto;
-}
 .row div {
   text-align: left;
   padding: 12px;
@@ -83,7 +79,6 @@ export default {
 }
 .row div:nth-child(2) {
   flex: 0 100px;
-  flex-wrap: nowrap;
 }
 span {
   font-weight: bold;

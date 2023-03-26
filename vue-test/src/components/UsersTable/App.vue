@@ -48,7 +48,6 @@ export default {
 
 <style scoped>
   .user_table {
-    table-layout: fixed;
     border-collapse: collapse;
     width: 100%;
     display: flex;

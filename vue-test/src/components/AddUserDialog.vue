@@ -5,14 +5,14 @@
 
     <div v-for="item in inputData" :key="item.name" class="input">
       <label :for="item.name">{{ item.title }}</label>
-      <input v-model="user[item.name]" :name="item.name">
+      <input v-model.trim="user[item.name]" :name="item.name">
     </div>
 
     <div class="input">
       <label for="chief">Начальник</label>
 
       <select name="chief" v-model="user.chiefId">
-        <option value="null"></option>
+        <option value="null">Без начальника</option>
         <option
         v-for="user in users"
         :key="user.id"
