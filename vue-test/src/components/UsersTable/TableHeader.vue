@@ -3,9 +3,7 @@
       <div
       v-for="item in headerData"
       :key="item.name"
-
       :class="item.name"
-
       @click="sortUsers"
       >
         {{ item.title }}

@@ -5,7 +5,6 @@
       <div >
         <span
           v-if="userToView.subordinates.length > 0"
-
           @click="toggleSub"
           >
           {{ shownSub ? '-' : '+' }}
@@ -19,7 +18,6 @@
     <table-row
     v-if="shownSub"
     v-for="user in userToView.subordinates"
-
     :key="user.id"
     :userToView="user"
     :isSubordinate="true"

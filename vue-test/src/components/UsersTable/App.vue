@@ -3,13 +3,11 @@
   <table-header
   :headerData="headers"
   :sortAscending = sortAscending
-
   @sort="sortUsers"
   />
 
   <table-row
   v-for="user in users"
-
   :key="user.id"
   :userToView="user"
   />
