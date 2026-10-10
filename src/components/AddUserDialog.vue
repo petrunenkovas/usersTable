@@ -1,18 +1,18 @@
 <template>
   <form-dialog @close="hideDialog">
-    <form @submit.prevent>
-    <h3>Добавление пользователя<span @click="hideDialog">&times;</span></h3>
+    <form @submit.prevent="validateForm">
+    <h3>Добавление пользователя<button class="close" type="button" aria-label="Закрыть" @click="hideDialog">&times;</button></h3>
 
     <div v-for="item in inputData" :key="item.name" class="input">
       <label :for="item.name">{{ item.title }}</label>
-      <input v-model.trim="user[item.name]" :name="item.name">
+      <input v-model.trim="user[item.name]" :id="item.name" :name="item.name">
     </div>
 
     <div class="input">
       <label for="chief">Начальник</label>
 
-      <select name="chief" v-model="user.chiefId">
-        <option value="null">Без начальника</option>
+      <select id="chief" name="chief" v-model="user.chiefId">
+        <option :value="null">Без начальника</option>
         <option
         v-for="user in users"
         :key="user.id"
@@ -25,7 +25,7 @@
     </div>
 
     <div class="error" v-if="error !== null">{{ error }}</div>
-    <button  type="button" @click="validateForm">Сохранить</button>
+    <button type="submit">Сохранить</button>
 
   </form>
   </form-dialog>
@@ -33,6 +33,7 @@
 
 <script>
 import FormDialog from '../UI/ModalDialog.vue'
+import { validName } from '../utils/users'
 
 export default {
   name: 'add-user-dialog',
@@ -72,7 +73,7 @@ export default {
     validateForm () {
       this.error = null
       try {
-        if (this.user.name === null || this.user.phone === null) {
+        if (!validName(this.user.name) || !this.user.phone) {
           throw new Error('Нужно заполнить все поля!')
         }
         if (!/^\+?[78][-(]?\d{3}\)?-?\d{3}-?\d{2}-?\d{2}$/.test(this.user.phone)) {
@@ -91,44 +92,49 @@ export default {
 </script>
 
 <style scoped>
-input {
-    width: 60%;
-    padding: 1px 2px;
-}
-select {
-    width: 62.4%;
-    padding: 1px 2px;
-}
-label {
-    text-align: left;
-}
 .input {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 16px;
 }
-
 h3 {
-    font-weight: normal;
-    padding: 0;
-    margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+  margin: 0 0 18px;
 }
-
-button {
-    width: 60%;
-    margin-top: 15px;
-    padding: 7px;
+input, select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e4;
+  border-radius: 6px;
+  background: white;
+  color: inherit;
+  font: inherit;
 }
-span {
-    float: right;
-    margin-right: -10px;
-    color: black;
-    font-size: 16px;
-    font-weight: bold;
+input:focus, select:focus { outline: 2px solid #94b7ff; }
+button[type="submit"] {
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  background: #315fbb;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+}
+.close {
+  border: 0;
+  background: none;
+  color: #52617b;
+  cursor: pointer;
+  font-size: 24px;
 }
 .error {
-  display: block;
-  color: red;
-  text-align: end;
+  color: #b42318;
+  margin-top: 12px;
 }
 </style>

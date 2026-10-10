@@ -3,12 +3,16 @@
 
     <div class="row">
       <div >
-        <span
+        <button
           v-if="userToView.subordinates.length > 0"
+          type="button"
+          class="toggle"
+          :aria-label="shownSub ? 'Скрыть подчинённых' : 'Показать подчинённых'"
+          :aria-expanded="shownSub"
           @click="toggleSub"
           >
           {{ shownSub ? '-' : '+' }}
-        </span>
+        </button>
         {{ userToView.name }}
       </div>
 
@@ -63,24 +67,38 @@ export default {
 .row {
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  border-top: 1px solid #edf0f5;
 }
 .user_row.subordinates {
-  padding-left: 20px;
+  padding-left: 18px;
 }
 .row div {
   text-align: left;
-  padding: 12px;
-  border: 1px solid black;
+  padding: 13px 16px;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 .row div:nth-child(1) {
-  flex: 1 2;
+  flex: 1;
 }
 .row div:nth-child(2) {
-  flex: 0 100px;
+  flex: 0 0 180px;
+  white-space: nowrap;
 }
-span {
+.toggle {
+  margin-right: 6px;
+  border: 0;
+  border-radius: 4px;
+  background: #edf2fb;
+  color: #315fbb;
+  cursor: pointer;
+  font: inherit;
   font-weight: bold;
-  margin-left: -5px;
+  width: 22px;
+  height: 22px;
+}
+.toggle:focus-visible { outline: 3px solid #94b7ff; }
+@media (max-width: 480px) {
+  .row div:nth-child(2) { flex-basis: 145px; }
 }
 </style>

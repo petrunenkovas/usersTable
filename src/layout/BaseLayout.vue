@@ -24,6 +24,7 @@
 <script>
 import UsersTable from '../components/UsersTable/App.vue'
 import AddUserDialog from '../components/AddUserDialog.vue'
+import { loadUsers, sortUsers, groupUsers } from '../utils/users'
 
 export default {
   name: 'base-layout',
@@ -67,29 +68,14 @@ export default {
   },
   computed: {
     sortUsersByProp () {
-      return [...this.users].sort((user1, user2) => {
-        if (user1[this.selectedSort.field] > user2[this.selectedSort.field]) {
-          return this.selectedSort.ascending
-        }
-        if (user1[this.selectedSort] < user2[this.selectedSort]) {
-          return -this.selectedSort.ascending
-        }
-        return 0
-      })
+      return sortUsers(this.users, this.selectedSort.field, this.selectedSort.ascending)
     },
     groupedUsersToView () {
-      let groupedUsers = []
-      this.sortUsersByProp.forEach((userMaped) => {
-        userMaped.subordinates = this.sortUsersByProp.filter((userFiltered) => userMaped.id === userFiltered.chiefId) || []
-        if (userMaped.chiefId == null) {
-          groupedUsers.push(userMaped)
-        }
-      })
-      return groupedUsers
+      return groupUsers(this.sortUsersByProp)
     }
   },
   mounted () {
-    this.users = JSON.parse(localStorage.getItem('users')) || []
+    this.users = loadUsers(localStorage.getItem('users'))
   }
 }
 </script>
@@ -98,24 +84,32 @@ export default {
 .main {
   display: flex;
   flex-direction: column;
-  width: 500px;
+  width: min(100%, 720px);
+  margin: 48px auto;
   align-items: flex-end;
 }
 button {
-  background-color: lightgray;
-  border: 1px solid black;
-  border-radius: 13px;
-  margin: 20px 0;
-  width: auto;
-  padding: 5px 20px;
+  background: #315fbb;
+  color: white;
+  border: 0;
+  border-radius: 8px;
+  margin: 0 0 20px;
+  padding: 10px 18px;
+  cursor: pointer;
+  font: inherit;
 }
+button:hover { background: #244d9d; }
+button:focus-visible { outline: 3px solid #94b7ff; outline-offset: 2px; }
 .savedUser {
-  background-color: lightgreen;
-  border: 1px solid black;
-  border-radius: 13px;
-  padding: 20px 20px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  background: #e1f5e7;
+  color: #17562a;
+  border-radius: 8px;
+  padding: 12px 16px;
+  position: fixed;
+  top: 16px;
+  right: 16px;
+}
+@media (max-width: 760px) {
+  .main { margin: 24px auto; }
 }
 </style>

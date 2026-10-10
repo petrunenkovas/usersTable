@@ -34,17 +34,18 @@ export default {
     bottom: 0;
     right: 0;
     left: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(22, 34, 55, 0.5);
     position: fixed;
     display: flex;
+    padding: 16px;
 }
 .dialog__content {
     margin: auto;
     background: white;
-    border: 1px solid black;
-    min-height: 50px;
-    min-width: 350px;
-    padding: 10px 20px;
+    border-radius: 12px;
+    width: min(100%, 420px);
+    padding: 24px;
+    box-shadow: 0 18px 50px rgba(16, 30, 54, 0.2);
     display: flex;
     flex-direction: column;
     justify-content: center;

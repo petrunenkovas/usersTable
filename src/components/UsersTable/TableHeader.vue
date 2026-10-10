@@ -1,18 +1,19 @@
 <template>
   <div class="header">
-      <div
+      <button
       v-for="item in headerData"
       :key="item.name"
       :class="item.name"
-      @click="sortUsers"
+      type="button"
+      @click="sortUsers(item.name)"
       >
         {{ item.title }}
         <span
           v-if="sortAscending !== 0 && selectedSort === item.name"
           >
-          {{ sortAscending === 1 ? '&#9650;' : '&#9660;' }}
+          {{ sortAscending === 1 ? '▲' : '▼' }}
         </span>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -35,9 +36,9 @@ export default {
     }
   },
   methods: {
-    sortUsers (event) {
-      this.selectedSort = event.target.className
-      this.$emit('sort', event.target.className)
+    sortUsers (field) {
+      this.selectedSort = field
+      this.$emit('sort', field)
     }
   }
 }
@@ -47,18 +48,28 @@ export default {
 .header {
   width: 100%;
   display: flex;
-  justify-content: baseline;
+  background: #edf2fb;
 }
-.header div {
+.header button {
   text-align: left;
-  padding: 12px;
-  border: 1px solid black;
-  flex: 2;
+  padding: 14px 16px;
+  border: 0;
+  background: transparent;
+  color: #243047;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
 }
-.header div:nth-child(2) {
-  flex: 0 100px;
+.header button:nth-child(2) {
+  flex: 0 0 180px;
 }
+.header button:hover { background: #e1eafb; }
+.header button:focus-visible { outline: 3px solid #94b7ff; outline-offset: -3px; }
 span {
   font-size: x-small;
+}
+@media (max-width: 480px) {
+  .header button:nth-child(2) { flex-basis: 145px; }
 }
 </style>

@@ -48,9 +48,13 @@ export default {
 
 <style scoped>
   .user_table {
-    border-collapse: collapse;
     width: 100%;
     display: flex;
     flex-direction: column;
+    background: white;
+    border: 1px solid #dde3ef;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(31, 51, 89, 0.06);
+    overflow: hidden;
   }
 </style>
