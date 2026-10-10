@@ -8,7 +8,7 @@ Originally built as a practice project focused on working with structured data a
 
 ![Users Table preview](assets/preview.png)
 
-[Live demo](https://petrunenkovas.github.io/usersTable/) (available after GitHub Pages deployment)
+[Live demo](https://petrunenkovas.github.io/usersTable/)
 
 ## Features
 
